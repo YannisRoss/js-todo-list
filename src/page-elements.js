@@ -2,6 +2,9 @@
 import { tasksArray, newTask } from "./task-creation";
 
 
+
+
+    
 let parent = document.getElementById('container')
 
 let newTaskButton = document.createElement('button')
@@ -21,23 +24,22 @@ export function initialBuild() {
         parent.appendChild(tasksDiv)
 
         tasksDiv.setAttribute('id', 'tasks-div')
-        console.log(1)
+        
 
 
 
     updateTasksDiv()
-    console.log(2)
+    
 
     tasksDiv.appendChild(tasksList)
-    console.log(3)
+    
 
 }
 
 export function updateTasksDiv() {
     tasksList.innerHTML = ''
-    console.log(tasksArray)
     if (tasksArray.length == 0) {
-        tasksDiv.innerHTML = 'Nothing on your to-do list yet'
+        tasksList.innerHTML = 'Nothing on your to-do list yet'
     }
     else {
         let i = 0
@@ -45,9 +47,41 @@ export function updateTasksDiv() {
             let taskElement = document.createElement('li')
                 taskElement.innerHTML = `${tasksArray[i].name}`
                 tasksList.appendChild(taskElement)
-                console.log(0)
+                taskElement.task = tasksArray[i]
+                taskElement.isExpanded = false;
+
+                taskElement.addEventListener('click', function() { toggleExpandedView(this,taskElement.isExpanded) })
+                
                 i++
 
         }
     }
 }
+ 
+function toggleExpandedView(element,expandedStatus){
+    
+    if (expandedStatus) {
+        element.style.removeProperty('height');
+        element.innerHTML = element.task.name
+
+       element.isExpanded = false
+
+    } 
+    else {
+        element.style.height = '50vh'
+        let expandedTaskView = document.createElement('article')
+            element.appendChild(expandedTaskView)
+            
+        let taskDescription = document.createElement('input')
+            taskDescription.setAttribute('type','text') 
+            taskDescription.defaultValue = element.task.name
+            expandedTaskView.appendChild(taskDescription) 
+
+        element.isExpanded = true
+    }
+
+
+
+}
+
+

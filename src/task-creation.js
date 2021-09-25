@@ -2,6 +2,7 @@ import { updateTasksDiv } from "./page-elements"
 
 
 export let tasksArray = []
+
 export function newTask(name, description, dueDate, priority, notes)  {
 
     console.log('new task pressed')
