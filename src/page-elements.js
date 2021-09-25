@@ -18,7 +18,7 @@ export function initialBuild() {
         newTaskButton.innerHTML = 'Create a new task'
         newTaskButton.setAttribute('id', 'new-task-button')
 
-        newTaskButton.addEventListener('click', function() {newTask(prompt("What is the task's name?"), 'no description', 'no dueDate', 'priority', 'notes')})
+        newTaskButton.addEventListener('click', function() {newTask(prompt("What is the task's name?"))})
         parent.appendChild(newTaskButton)
 
         parent.appendChild(tasksDiv)
@@ -60,12 +60,11 @@ export function updateTasksDiv() {
 }
  
 function expandView(taskElement){
-    
     if (!taskElement.isExpanded) {
         taskElement.style.height = '50vh'
         let expandedTaskView = document.createElement('article')
         taskElement.appendChild(expandedTaskView)
-            
+
         let taskDescriptionField = document.createElement('input')
             taskDescriptionField.setAttribute('type','text') 
             taskDescriptionField.defaultValue = taskElement.task.description
@@ -76,11 +75,30 @@ function expandView(taskElement){
                 descriptionUpdateButton.addEventListener('click', function() { updateTaskDescription(taskElement.task, taskDescriptionField) })
                 expandedTaskView.appendChild(descriptionUpdateButton)
             taskElement.isExpanded = true
+
+        
+        let dueDateField = document.createElement('p')
+            //dueDateField.setAttribute('type','date')
+            dueDateField.innerHTML = taskElement.task.dueDate
+            expandedTaskView.appendChild(dueDateField) 
+        //dueDate, priority, notes
+        let hideButton = document.createElement('button')
+            hideButton.innerHTML = 'hide'
+            hideButton.setAttribute('class', 'hide-button')
+            expandedTaskView.appendChild(hideButton)
+            hideButton.setAttribute('onclick',"event.stopPropagation()")
+            hideButton.addEventListener('click', function() { minimizeView(taskElement, expandedTaskView) })
     } 
+}
 
+function minimizeView(taskElement, expandedTaskView) {
 
+    if (taskElement.isExpanded) {
+        taskElement.style.height = ''
+        expandedTaskView.innerHTML = ''
 
-
+        taskElement.isExpanded = false
+    }
 }
 
 
