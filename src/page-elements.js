@@ -44,13 +44,14 @@ export function updateTasksDiv() {
     else {
         let i = 0
         while (i < tasksArray.length) {
-            let taskElement = document.createElement('li')
+            let taskElement = document.createElement('div')
                 taskElement.innerHTML = `${tasksArray[i].name}`
                 tasksList.appendChild(taskElement)
                 taskElement.task = tasksArray[i]
                 taskElement.isExpanded = false;
+                taskElement.setAttribute('class', 'task-element')
 
-                taskElement.addEventListener('click', function() { toggleExpandedView(this,taskElement.isExpanded) })
+                taskElement.addEventListener('click', function() { expandView(taskElement) })
                 
                 i++
 
@@ -58,30 +59,35 @@ export function updateTasksDiv() {
     }
 }
  
-function toggleExpandedView(element,expandedStatus){
+function expandView(taskElement){
     
-    if (expandedStatus) {
-        element.style.removeProperty('height');
-        element.innerHTML = element.task.name
-
-       element.isExpanded = false
-
-    } 
-    else {
-        element.style.height = '50vh'
+    if (!taskElement.isExpanded) {
+        taskElement.style.height = '50vh'
         let expandedTaskView = document.createElement('article')
-            element.appendChild(expandedTaskView)
+        taskElement.appendChild(expandedTaskView)
             
-        let taskDescription = document.createElement('input')
-            taskDescription.setAttribute('type','text') 
-            taskDescription.defaultValue = element.task.name
-            expandedTaskView.appendChild(taskDescription) 
+        let taskDescriptionField = document.createElement('input')
+            taskDescriptionField.setAttribute('type','text') 
+            taskDescriptionField.defaultValue = taskElement.task.description
+            expandedTaskView.appendChild(taskDescriptionField) 
 
-        element.isExpanded = true
-    }
+            let descriptionUpdateButton = document.createElement('button')
+                descriptionUpdateButton.innerHTML = 'Update description'
+                descriptionUpdateButton.addEventListener('click', function() { updateTaskDescription(taskElement.task, taskDescriptionField) })
+                expandedTaskView.appendChild(descriptionUpdateButton)
+            taskElement.isExpanded = true
+    } 
+
 
 
 
 }
 
 
+function updateTaskDescription(task, descriptionField) {
+
+    console.log(descriptionField.value)
+
+    task.description = descriptionField.value
+
+}
