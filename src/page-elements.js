@@ -88,6 +88,11 @@ function expandView(taskElement){
             expandedTaskView.appendChild(hideButton)
             hideButton.setAttribute('onclick',"event.stopPropagation()")
             hideButton.addEventListener('click', function() { minimizeView(taskElement, expandedTaskView) })
+
+        let priorityDropdown = document.createElement('input')
+
+
+        
     } 
 }
 
