@@ -62,32 +62,26 @@ export function updateTasksDiv() {
 function expandView(taskElement){
     if (!taskElement.isExpanded) {
         taskElement.style.height = '50vh'
-        let expandedTaskView = document.createElement('article')
-        taskElement.appendChild(expandedTaskView)
+        //let expandedTask = document.createElement('article')
+        //    expandedTask.setAttribute('class', 'expanded-task')
+        //taskElement.appendChild(expandedTask)
 
-        let taskDescriptionField = document.createElement('input')
-            taskDescriptionField.setAttribute('type','text') 
-            taskDescriptionField.defaultValue = taskElement.task.description
-            expandedTaskView.appendChild(taskDescriptionField) 
+        buildDescription(taskElement)
 
-            let descriptionUpdateButton = document.createElement('button')
-                descriptionUpdateButton.innerHTML = 'Update description'
-                descriptionUpdateButton.addEventListener('click', function() { updateTaskDescription(taskElement.task, taskDescriptionField) })
-                expandedTaskView.appendChild(descriptionUpdateButton)
-            taskElement.isExpanded = true
+            
+        taskElement.isExpanded = true
 
-        
         let dueDateField = document.createElement('p')
             //dueDateField.setAttribute('type','date')
             dueDateField.innerHTML = taskElement.task.dueDate
-            expandedTaskView.appendChild(dueDateField) 
+            taskElement.appendChild(dueDateField) 
         //dueDate, priority, notes
         let hideButton = document.createElement('button')
             hideButton.innerHTML = 'hide'
             hideButton.setAttribute('class', 'hide-button')
-            expandedTaskView.appendChild(hideButton)
+            taskElement.appendChild(hideButton)
             hideButton.setAttribute('onclick',"event.stopPropagation()")
-            hideButton.addEventListener('click', function() { minimizeView(taskElement, expandedTaskView) })
+            hideButton.addEventListener('click', function() { minimizeView(taskElement) })
 
         let priorityDropdown = document.createElement('input')
 
@@ -96,21 +90,69 @@ function expandView(taskElement){
     } 
 }
 
-function minimizeView(taskElement, expandedTaskView) {
+function minimizeView(taskElement) {
 
     if (taskElement.isExpanded) {
         taskElement.style.height = ''
-        expandedTaskView.innerHTML = ''
+        taskElement.innerHTML = ''
 
         taskElement.isExpanded = false
     }
 }
 
+function buildDescription(taskElement){
 
-function updateTaskDescription(task, descriptionField) {
 
-    console.log(descriptionField.value)
+    let taskDescriptionDiv = document.createElement('div')
+    taskDescriptionDiv.setAttribute('id','description-div') 
+    taskDescriptionDiv.innerHTML = taskElement.task.description
+    taskDescriptionDiv.addEventListener('click', function(){clickTaskDescription(taskDescriptionDiv, taskElement)})
+    taskElement.appendChild(taskDescriptionDiv) 
 
-    task.description = descriptionField.value
 
+
+   
+    taskElement.isExpanded = true
+
+}
+
+
+function clickTaskDescription(taskDescriptionDiv, taskElement){
+
+    console.log('task description clicked')
+    let clickedTaskDescription = document.createElement('div')
+        clickedTaskDescription.setAttribute('id', 'clicked-task-description')
+
+        let taskDescriptionField = document.createElement('input')
+        taskDescriptionField.setAttribute('type','text') 
+        taskDescriptionField.defaultValue = taskElement.task.description
+        //expandedTaskView.appendChild(taskDescriptionField) 
+        console.log(1)
+        //before click, it is regular text. on click, it becomes a text field 
+        console.log(12)
+
+        let descriptionUpdateButton = document.createElement('button')
+        descriptionUpdateButton.innerHTML = 'Update description'
+        descriptionUpdateButton.addEventListener('click', function() { updateTaskDescription(taskElement, taskDescriptionDiv, taskDescriptionField) })
+        
+        clickedTaskDescription.appendChild(taskDescriptionField)
+        clickedTaskDescription.appendChild(descriptionUpdateButton)
+        console.log(13)
+        taskDescriptionDiv.replaceWith(clickedTaskDescription)
+
+}
+
+function updateTaskDescription(taskElement, taskDescriptionDiv, taskDescriptionField) {
+
+    console.log('update description clicked: ' + taskDescriptionField.value)
+
+    console.log(taskDescriptionDiv.innerHTML)
+
+    taskElement.task.description = taskDescriptionField.value
+    console.log(taskElement.task.description)
+    document.getElementsByClassName('clicked-task-description').innerHTML = ''
+
+    minimizeView(taskElement)
+    console.log('rebuilding task desc')
+    updateTasksDiv()
 }

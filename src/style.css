@@ -38,6 +38,10 @@
 
 }
 
+#description-div {
+
+    width: 100%
+}
 .hide-button {
 
     background-color: aqua;
