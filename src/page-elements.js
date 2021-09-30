@@ -71,14 +71,18 @@ function expandView(taskElement){
             
         taskElement.isExpanded = true
 
-        let dueDateField = document.createElement('p')
-            //dueDateField.setAttribute('type','date')
-            dueDateField.innerHTML = taskElement.task.dueDate
+        let dueDateField = document.createElement('input')
+            dueDateField.setAttribute('type','date')
+            dueDateField.defaultValue = taskElement.task.dueDate
             taskElement.appendChild(dueDateField) 
-        //dueDate, priority, notes
+
+            dueDateField.addEventListener('input', e => {
+                taskElement.task.dueDate = dueDateField.value
+            })
         
         let priorityDropdown = document.createElement('select')
             let highPriority = document.createElement('option')
+            
                 highPriority.value = 'High'
                 highPriority.innerHTML = 'High'
                 priorityDropdown.appendChild(highPriority)
@@ -87,9 +91,18 @@ function expandView(taskElement){
                 lowPriority.value = 'Low'
                 lowPriority.innerHTML = 'Low'
 
+                priorityDropdown.defaultValue = taskElement.task.priority
+                if (taskElement.task.priority == 'High') {
+                    highPriority.selected = 'selected'
+                }
+                else {lowPriority.selected = 'selected'}
                 taskElement.appendChild(priorityDropdown)
 
+                priorityDropdown.addEventListener('input', e => {
+                    taskElement.task.priority = priorityDropdown.value
 
+                })
+        
         let hideButton = document.createElement('button')
             hideButton.innerHTML = 'hide'
             hideButton.setAttribute('class', 'hide-button')
@@ -166,3 +179,4 @@ function updateTaskDescription(taskElement, taskDescriptionDiv, taskDescriptionF
     console.log('rebuilding task desc')
     updateTasksDiv()
 }
+
