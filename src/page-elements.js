@@ -62,9 +62,7 @@ export function updateTasksDiv() {
 function expandView(taskElement){
     if (!taskElement.isExpanded) {
         taskElement.style.height = '50vh'
-        //let expandedTask = document.createElement('article')
-        //    expandedTask.setAttribute('class', 'expanded-task')
-        //taskElement.appendChild(expandedTask)
+
 
         buildDescription(taskElement)
 
@@ -110,6 +108,19 @@ function expandView(taskElement){
             hideButton.setAttribute('onclick',"event.stopPropagation()")
             hideButton.addEventListener('click', function() { minimizeView(taskElement) })
 
+        let deleteButton = document.createElement('button')
+            deleteButton.innerHTML = 'delete'
+            deleteButton.setAttribute('class', 'delete-button')
+            taskElement.appendChild(deleteButton)
+            deleteButton.addEventListener('click',e => { 
+                let taskToDelete = tasksArray.find(element => element.name = taskElement.task.name)
+                let index = tasksArray.indexOf(taskToDelete)
+                
+                 if (index > -1) {
+                     tasksArray.splice(index, 1)
+                     updateTasksDiv()
+                 }
+             })
     } 
 }
 
