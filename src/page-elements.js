@@ -76,6 +76,20 @@ function expandView(taskElement){
             dueDateField.innerHTML = taskElement.task.dueDate
             taskElement.appendChild(dueDateField) 
         //dueDate, priority, notes
+        
+        let priorityDropdown = document.createElement('select')
+            let highPriority = document.createElement('option')
+                highPriority.value = 'High'
+                highPriority.innerHTML = 'High'
+                priorityDropdown.appendChild(highPriority)
+                let lowPriority = document.createElement('option')
+                priorityDropdown.appendChild(lowPriority)
+                lowPriority.value = 'Low'
+                lowPriority.innerHTML = 'Low'
+
+                taskElement.appendChild(priorityDropdown)
+
+
         let hideButton = document.createElement('button')
             hideButton.innerHTML = 'hide'
             hideButton.setAttribute('class', 'hide-button')
@@ -83,10 +97,6 @@ function expandView(taskElement){
             hideButton.setAttribute('onclick',"event.stopPropagation()")
             hideButton.addEventListener('click', function() { minimizeView(taskElement) })
 
-        let priorityDropdown = document.createElement('input')
-
-
-        
     } 
 }
 
