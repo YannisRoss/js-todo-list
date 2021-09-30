@@ -94,7 +94,7 @@ function minimizeView(taskElement) {
 
     if (taskElement.isExpanded) {
         taskElement.style.height = ''
-        taskElement.innerHTML = ''
+        taskElement.innerHTML = taskElement.task.name
 
         taskElement.isExpanded = false
     }
