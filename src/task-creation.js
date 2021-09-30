@@ -15,6 +15,7 @@ export function newTask(name, description = 'No description yet', dueDate = new 
     task.done = false
 
     tasksArray.push(task)
+    task.id = tasksArray.length
     updateTasksDiv()
     return task
     

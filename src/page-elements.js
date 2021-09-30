@@ -60,6 +60,7 @@ export function updateTasksDiv() {
 }
  
 function expandView(taskElement){
+    console.log(`clicked task ${taskElement.task.name}, id ${taskElement.task.id}`)
     if (!taskElement.isExpanded) {
         taskElement.style.height = '50vh'
 
@@ -71,6 +72,8 @@ function expandView(taskElement){
 
         let dueDateField = document.createElement('input')
             dueDateField.setAttribute('type','date')
+            dueDateField.setAttribute('class','due-date-field')
+
             dueDateField.defaultValue = taskElement.task.dueDate
             taskElement.appendChild(dueDateField) 
 
@@ -79,6 +82,8 @@ function expandView(taskElement){
             })
         
         let priorityDropdown = document.createElement('select')
+        priorityDropdown.setAttribute('class','priority-dropdown')
+
             let highPriority = document.createElement('option')
             
                 highPriority.value = 'High'
@@ -113,7 +118,8 @@ function expandView(taskElement){
             deleteButton.setAttribute('class', 'delete-button')
             taskElement.appendChild(deleteButton)
             deleteButton.addEventListener('click',e => { 
-                let taskToDelete = tasksArray.find(element => element.name = taskElement.task.name)
+                let taskToDelete = tasksArray.find(element => element.id == taskElement.task.id)
+                console.log(`deleting task ${taskToDelete.name}, id: ${taskToDelete.id}`)
                 let index = tasksArray.indexOf(taskToDelete)
                 
                  if (index > -1) {
@@ -138,7 +144,7 @@ function buildDescription(taskElement){
 
 
     let taskDescriptionDiv = document.createElement('div')
-    taskDescriptionDiv.setAttribute('id','description-div') 
+    taskDescriptionDiv.setAttribute('class','description-div') 
     taskDescriptionDiv.innerHTML = taskElement.task.description
     taskDescriptionDiv.addEventListener('click', function(){clickTaskDescription(taskDescriptionDiv, taskElement)})
     taskElement.appendChild(taskDescriptionDiv) 
@@ -155,7 +161,7 @@ function clickTaskDescription(taskDescriptionDiv, taskElement){
 
     console.log('task description clicked')
     let clickedTaskDescription = document.createElement('div')
-        clickedTaskDescription.setAttribute('id', 'clicked-task-description')
+        clickedTaskDescription.setAttribute('class', 'clicked-task-description')
 
         let taskDescriptionField = document.createElement('input')
         taskDescriptionField.setAttribute('type','text') 
