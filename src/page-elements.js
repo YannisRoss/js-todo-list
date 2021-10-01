@@ -126,6 +126,8 @@ function expandView(taskElement){
                      tasksArray.splice(index, 1)
                      updateTasksDiv()
                  }
+                 localStorage.setItem("tasks", JSON.stringify(tasksArray));
+
              })
     } 
 }
