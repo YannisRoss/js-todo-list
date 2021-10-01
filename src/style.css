@@ -21,6 +21,7 @@
 #tasks-div {
 
     background-color: maroon;
+    color: honeydew;
 
 }
 
@@ -35,24 +36,41 @@
 
 .task-element {
 
+    padding-top: 4vh;
+    padding-bottom: 4vh;
     border: 1px solid gold;
+    display: flex;
+    justify-content: space-between;
 }
 
-#description-div {
-
-    width: 100%
+.description-div {
+    width: 10vw;
+    word-wrap: break-word;
 }
 
 .due-date-field {
-
-
+    height: 10%;
+    border: 0.3rem solid goldenrod;
 }
 
 .priority-dropdown {
+    height: 10%;
+    border: 0.3rem solid goldenrod;
 
-    
+
 }
 .hide-button {
+    height: 10%;
+    border: 0.3rem solid goldenrod;
 
     background-color: aqua;
+}
+
+.delete-button {
+    height: 10%;
+    background-color: indigo;
+    border: 0.3rem solid red;
+    color: honeydew ;
+
+    margin-right: 10%;
 }

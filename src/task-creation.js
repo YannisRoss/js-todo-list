@@ -1,7 +1,12 @@
 import { updateTasksDiv } from "./page-elements"
 
+//export let tasksArray = []
 
-export let tasksArray = []
+export let tasksArray = JSON.parse(localStorage.getItem('tasks'))
+
+if (tasksArray == null) {
+    tasksArray = []
+}
 
 export function newTask(name, description = 'No description yet', dueDate = new Date(), priority = '', notes = '')  {
 
@@ -15,7 +20,11 @@ export function newTask(name, description = 'No description yet', dueDate = new 
     task.done = false
 
     tasksArray.push(task)
+
     task.id = tasksArray.length
+
+    localStorage.setItem("tasks", JSON.stringify(tasksArray));
+
     updateTasksDiv()
     return task
     

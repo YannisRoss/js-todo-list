@@ -38,7 +38,7 @@ export function initialBuild() {
 
 export function updateTasksDiv() {
     tasksList.innerHTML = ''
-    if (tasksArray.length == 0) {
+    if ( tasksArray == null || tasksArray.length == 0) {
         tasksList.innerHTML = 'Nothing on your to-do list yet'
     }
     else {
