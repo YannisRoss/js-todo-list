@@ -1,7 +1,5 @@
 import { updateTasksDiv } from "./page-elements"
 
-//export let tasksArray = []
-
 export let tasksArray = JSON.parse(localStorage.getItem('tasks'))
 
 if (tasksArray == null) {
