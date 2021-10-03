@@ -168,10 +168,6 @@ function clickTaskDescription(taskDescriptionDiv, taskElement){
         let taskDescriptionField = document.createElement('input')
         taskDescriptionField.setAttribute('type','text') 
         taskDescriptionField.defaultValue = taskElement.task.description
-        //expandedTaskView.appendChild(taskDescriptionField) 
-        console.log(1)
-        //before click, it is regular text. on click, it becomes a text field 
-        console.log(12)
 
         let descriptionUpdateButton = document.createElement('button')
         descriptionUpdateButton.innerHTML = 'Update description'
@@ -179,7 +175,6 @@ function clickTaskDescription(taskDescriptionDiv, taskElement){
         
         clickedTaskDescription.appendChild(taskDescriptionField)
         clickedTaskDescription.appendChild(descriptionUpdateButton)
-        console.log(13)
         taskDescriptionDiv.replaceWith(clickedTaskDescription)
 
 }
@@ -195,7 +190,6 @@ function updateTaskDescription(taskElement, taskDescriptionDiv, taskDescriptionF
     document.getElementsByClassName('clicked-task-description').innerHTML = ''
 
     minimizeView(taskElement)
-    console.log('rebuilding task desc')
     updateTasksDiv()
 }
 
